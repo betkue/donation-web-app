@@ -1,14 +1,16 @@
 // import './App.css';
 import ModalComponent from "./ModalComponent";
 import React, { useRef, useEffect, useState } from "react";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+
 import AOS from "aos";
 import { useForm } from "@inertiajs/react";
 import Modal from "@/Components/Modal";
 import "aos/dist/aos.css"; // Import AOS styles
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import SecondaryButton from "./SecondaryButton";
-import TextInput from "./TextInput";
+import SecondaryButton from "@/Components/SecondaryButton";
+import TextInput from "@/Components/TextInput";
 
 function ButtonDon() {
     useEffect(() => {
@@ -17,7 +19,16 @@ function ButtonDon() {
     const [showModal, setShowModal] = useState(false);
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
-    const passwordInput = useRef();
+
+    const [amount, setAmount] = useState(0);
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+
+    const amountInput = useRef();
+    const emailInput = useRef();
+    const nameInput = useRef();
+    const phoneInput = useRef();
 
     const {
         data,
@@ -27,15 +38,46 @@ function ButtonDon() {
         reset,
         errors,
     } = useForm({
-        password: "",
+        amount: "",
+        email: "",
+        name: "",
+        phone: "",
     });
+    const config = {
+        public_key: "FLWPUBK_TEST-e7c8f332b9d34b01b958cf4f4f643018-X",
+        tx_ref: Date.now(),
+        amount: amount,
+        currency: "NGN",
+        payment_options: "card,mobilemoney,ussd",
+        customer: {
+            email: email,
+            phone_number: phone,
+            name: name,
+        },
+        customizations: {
+            title: "my Payment Title",
+            description: "Payment for items in cart",
+            logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+        },
+    };
+
+    const handleFlutterPayment = useFlutterwave(config);
 
     const donnation = (e) => {
-        // e.preventDefault();
-        // destroy(route("profile.destroy"), {
+        e.preventDefault();
+        handleFlutterPayment({
+            callback: (response) => {
+                console.log(response);
+                closePaymentModal();
+                closeModal();
+            },
+            onClose: () => {},
+        });
+
+        // destroy(route('profile.destroy'), {
         //     preserveScroll: true,
         //     onSuccess: () => closeModal(),
-        //     onError: () => passwordInput.current.focus(),
+        //     // onError: () => passwordInput.current.focus(),
         //     onFinish: () => reset(),
         // });
     };
@@ -44,73 +86,90 @@ function ButtonDon() {
             <div data-aos="fade-up" data-aos-delay="650">
                 <button
                     onClick={openModal}
-                    className="mt-4 px-4 py-2 bg-green-600 text-white text-sm uppercase font-medium rounded hover:bg-green-500 focus:outline-none focus:bg-green-500"
+                    className="px-4 py-2 mt-4 text-sm font-medium text-white uppercase bg-green-600 rounded hover:bg-green-500 focus:outline-none focus:bg-green-500"
                 >
                     Faire un don
                 </button>
 
                 <Modal show={showModal} onClose={closeModal}>
-                    <form onSubmit={donnation} className="p-6">
-                        <h2 className="text-lg font-medium text-gray-900">
-                            Are you sure you want to delete your account?
-                        </h2>
-
-                        <p className="mt-1 text-sm text-gray-600">
-                            Once your account is deleted, all of its resources
-                            and data will be permanently deleted. Please enter
-                            your password to confirm you would like to
-                            permanently delete your account.
-                        </p>
+                    <form onSubmit={donnation} className="p-6 m-auto">
+                        <p className="mt-1 text-sm text-gray-600"></p>
 
                         <div className="mt-6">
-                            <InputLabel
-                                htmlFor="password"
-                                value="Password"
-                                className="sr-only"
+                            <TextInput
+                                id="amount"
+                                type="number"
+                                name="amount"
+                                ref={amountInput}
+                                value={data.amount}
+                                onChange={(e) => {
+                                    setData("amount", e.target.value),
+                                        setAmount(e.target.value);
+                                }}
+                                className="block w-3/4 mt-1"
+                                placeholder="Amount FCFA"
                             />
 
                             <TextInput
-                                id="password"
-                                type="password"
-                                name="password"
-                                ref={passwordInput}
-                                value={data.password}
-                                onChange={(e) =>
-                                    setData("password", e.target.value)
-                                }
-                                className="mt-1 block w-3/4"
-                                isFocused
-                                placeholder="Password"
+                                id="email"
+                                type="email"
+                                name="email"
+                                ref={emailInput}
+                                value={data.email}
+                                onChange={(e) => {
+                                    setData("email", e.target.value),
+                                        setEmail(e.target.value);
+                                }}
+                                className="block w-3/4 mt-1"
+                                placeholder="Email"
                             />
 
                             <TextInput
-                                id="password"
-                                type="password"
-                                name="password"
-                                ref={passwordInput}
-                                value={data.password}
-                                onChange={(e) =>
-                                    setData("password", e.target.value)
-                                }
-                                className="mt-1 block w-3/4"
-                                isFocused
-                                placeholder="Password"
+                                id="name"
+                                type="text"
+                                name="name"
+                                ref={nameInput}
+                                value={data.name}
+                                onChange={(e) => {
+                                    setData("name", e.target.value),
+                                        setName(e.target.value);
+                                }}
+                                className="block w-3/4 mt-1"
+                                placeholder="Name"
                             />
 
-                            <InputError
-                                message={errors.password}
-                                className="mt-2"
+                            <TextInput
+                                id="phone"
+                                type="text"
+                                name="phone"
+                                ref={phoneInput}
+                                value={data.phone}
+                                onChange={(e) => {
+                                    setData("phone", e.target.value),setPhone(
+                                        e.target.value
+                                    );
+                                }}
+                                className="block w-3/4 mt-1"
+                                placeholder="Phone "
                             />
+
+                            {/* <InputError
+                                        message={errors.password}
+                                        className="mt-2"
+                                    /> */}
                         </div>
 
-                        <div className="mt-6 flex justify-end">
-                            <SecondaryButton onClick={closeModal}>
-                                Cancel
-                            </SecondaryButton>
+                        <div className="flex justify-end mt-6">
+                            <button
+                                onClick={closeModal}
+                                className="px-4 py-2 mt-4 mr-4 text-sm font-medium text-white uppercase bg-red-600 rounded hover:bg-red-500 focus:outline-none focus:bg-red-500"
+                            >
+                                Annuler
+                            </button>
 
                             <button
-                                onClick={openModal}
-                                className="mt-4 px-4 py-2 bg-green-600 text-white text-sm uppercase font-medium rounded hover:bg-green-500 focus:outline-none focus:bg-green-500"
+                                type="submit"
+                                className="px-4 py-2 mt-4 text-sm font-medium text-white uppercase bg-green-600 rounded hover:bg-green-500 focus:outline-none focus:bg-green-500"
                             >
                                 Faire un don
                             </button>
@@ -120,7 +179,7 @@ function ButtonDon() {
                 {/* <ModalComponent>
                             <button
                                 onClick={closeModal}
-                                className="px-4 py-2 bg-red-500 text-white rounded-md"
+                                className="px-4 py-2 text-white bg-red-500 rounded-md"
                             >
                                 Annuler
                             </button>
@@ -131,96 +190,3 @@ function ButtonDon() {
 }
 
 export default ButtonDon;
-
-
-// const handleSubmit  = async(e) => {
-//     e.preventDefault();
-//     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-//     if (regex.test(emailTel)) {
-//        if(!isNaN(somme)){
-//         setIsLoad(true);
-//     const url = 'https://stock-manager.smilylab.tech/api/v1/user/smilylab';
-//     const data = {
-//         "email": emailTel,
-//         "password": "sexybb23jndfer8ehr3inqwdKJOWEWnqweije",
-//         "amount": somme,
-//         "currency": "XAF",
-//         "description": "Payment donnation", // this field is optional
-//         "reference": emailTel + somme
-//     }; const headers = {
-//         'Content-Type': 'application/json',
-//     };
-
-//     // Traitement du formulaire
-//     console.log(`Somme : ${somme}, Email/Téléphone : ${emailTel}`);
-
-//     setError('')
-//     const response = await axios.post(url, data, {
-//         headers,
-//       });
-
-//       if (response.status === 200) {
-//         // Succès
-//         window.open(response.data, '_blank')
-//       } else {
-//         // Erreur
-//         console.log('Échec de la requête POST', response.status);
-//         setError('echec payment')
-//       }
-//       setIsLoad(false);
-//        }
-//        else{
-
-//         setError('La somme doit etre un nombre')
-//        }
-//     }else{
-
-//         setError('l\'email doit etre valide')
-//     }
-
-// };
-
-// return (
-//     <div className="fixed inset-0 overflow-hidden z-50">
-//         <div className="fixed inset-0 bg-gray-900/50 backdrop-filter-blur-sm transition-opacity duration-300" />
-//         <div className="fixed inset-0 mx-auto flex items-center justify-center z-50">
-//             {(
-//                 <div className="bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-md p-6">
-
-//                     <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-//                         <h2 className="text-xl font-bold text-gray-700">Completez les champs</h2>
-//                         <div className="flex flex-col space-y-2">
-//                             <label htmlFor="somme" className="text-sm text-gray-500">Somme (FCFA)</label>
-//                             <input
-//                                 type="number"
-//                                 id="somme"
-//                                 name="somme"
-//                                 value={somme}
-//                                 onChange={(e) => setSomme(e.target.value)}
-//                                 className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-//                             />
-//                         </div>
-//                         <div className="flex flex-col space-y-2">
-//                             <label htmlFor="emailTel" className="text-sm text-gray-500">Email </label>
-//                             <input
-//                                 type="email"
-//                                 id="emailTel"
-//                                 name="emailTel"
-//                                 value={emailTel}
-//                                 onChange={(e) => setEmailTel(e.target.value)}
-//                                 className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-//                             />
-//                         </div>
-//                         {error &&(<div class='justify-center'>
-//                         <label htmlFor="emailTel" className="text-sm m-6 text-center text-red-500">{{error}} verifiez votre connexion ou email</label>
-//                         </div>)}
-//                         {isLoad ? <Loading /> : (<button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md">Faire un don</button>)}
-//                         {isLoad ? <Loading /> : children}
-
-//                     </form>
-//                 </div>
-//             )}
-//         </div>
-//     </div>
-// );
