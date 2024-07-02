@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{-- {{ str_replace('_', '-', app()->getLocale()) }} --}}
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <meta name="description" content="Participe toi aussi et fais un don pour
+                                aider ceux dans le besoin, les petits gestes du
+                                quotidien peuvent changer la vie des plus
+                                demunis.">
+                                <meta name="author" content="smilylab" />
+        <link rel="shortcut icon" href="{{ asset('assets/logo.jpg') }}" type="image/png">
+        <title inertia>{{ config('app.name', 'Faites un don') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
