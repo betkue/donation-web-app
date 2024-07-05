@@ -63,7 +63,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion,totalDonation
                                 <span className="text-green-400 ">
                                    { totalDonations } FCFA
                                 </span>
-                                de dons
+                                 de dons
                             </h3>
 
                             <span data-aos="fade-up" data-aos-delay="650">
