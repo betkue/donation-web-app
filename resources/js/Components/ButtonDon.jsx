@@ -11,14 +11,17 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
+import Loading from "./Load";
 
 function ButtonDon() {
     useEffect(() => {
         AOS.init();
     }, []);
     const [showModal, setShowModal] = useState(false);
+    const [showLoad, setShowLoad] = useState(false);
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
+    const load = () => setShowLoad(true);
 
     const [amount, setAmount] = useState(0);
     const [email, setEmail] = useState("");
@@ -44,7 +47,7 @@ function ButtonDon() {
         phone: "",
     });
     const config = {
-        public_key: "FLWPUBK_TEST-e7c8f332b9d34b01b958cf4f4f643018-X",
+        public_key: "FLWPUBK_TEST-5f04043717fd4dc3fa002a8190925250-X",
         tx_ref: Date.now(),
         amount: amount,
         currency: "NGN",
@@ -81,6 +84,8 @@ function ButtonDon() {
         //     onFinish: () => reset(),
         // });
     };
+
+    // alert(showLoad)
     return (
         <>
             <div data-aos="fade-up" data-aos-delay="650">
@@ -92,7 +97,8 @@ function ButtonDon() {
                 </button>
 
                 <Modal show={showModal} onClose={closeModal}>
-                    <form onSubmit={donnation} className="p-6 m-auto">
+                {/* <form  action="" method="get" onSubmit={donnation} className="p-6 m-auto"> */}
+                    <form  action="/payment" method="get"  className="p-6 m-auto">
                         <p className="mt-1 text-sm text-gray-600"></p>
 
                         <div className="mt-6">
@@ -160,19 +166,28 @@ function ButtonDon() {
                         </div>
 
                         <div className="flex justify-end mt-6">
-                            <button
+                            {
+                                !showLoad &&<button
                                 onClick={closeModal}
                                 className="px-4 py-2 mt-4 mr-4 text-sm font-medium text-white uppercase bg-red-600 rounded hover:bg-red-500 focus:outline-none focus:bg-red-500"
                             >
                                 Annuler
                             </button>
+                            }
 
-                            <button
+                            { !showLoad &&
+                                <button
+                                // onClick={load}
                                 type="submit"
                                 className="px-4 py-2 mt-4 text-sm font-medium text-white uppercase bg-green-600 rounded hover:bg-green-500 focus:outline-none focus:bg-green-500"
                             >
                                 Faire un don
                             </button>
+                            }
+
+                            {
+                                showLoad && <Loading/>
+                            }
                         </div>
                     </form>
                 </Modal>

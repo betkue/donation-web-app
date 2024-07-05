@@ -4,17 +4,47 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\NotchPayCallBackController;
+use App\Models\Donation;
 
 Route::get('/', function () {
+    $totalDonations = Donation::where('state', 1)->sum('amount');
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'totalDonations'=>$totalDonations,
     ]);
-});
+})->name('home');
+
+Route::get('/payment-error', function () {
+    $totalDonations = Donation::where('state', 1)->sum('amount');
+    return Inertia::render('ErrorPayement', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+        'totalDonations'=>$totalDonations,
+    ]);
+})->name('payment-error');
 
 
+Route::get('/payment-success', function () {
+    $totalDonations = Donation::where('state', 1)->sum('amount');
+    return Inertia::render('SuccessPayement', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+        'totalDonations'=>$totalDonations,
+    ]);
+})->name('payment-success');
+
+Route::get('payment', PaymentController::class)->name('payment');
+// Route::get('payment/error', PaymentController::class,)->name('payment-error');
+Route::get('callback-payment', NotchPayCallBackController::class)->name('notchpay-callback');
 // Route::get('/payment', function () {
 //     $rave = new Rave($this->flwPublic, $this->flwSecret);
 
@@ -52,14 +82,14 @@ Route::get('/', function () {
 
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';

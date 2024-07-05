@@ -7,21 +7,21 @@ import ButtonDon from "@/Components/ButtonDon";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome({ auth, laravelVersion, phpVersion,totalDonations }) {
     useEffect(() => {
         AOS.init();
     }, []);
     const imgObjectif1 = obj1;
     const imgObjectif2 = obj2;
     const imgObjectif3 = hero;
-    const whyus = obj2
+    const whyus = obj2;
 
     return (
         <>
             <Head title="Faites un don" />
             <header>
                 <div
-                    className="h-screen w-screen fade-in-container"
+                    className="w-screen h-screen fade-in-container"
                     style={{
                         background: `url(${hero})`,
                         backgroundSize: "cover",
@@ -30,20 +30,20 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     }}
                     data-aos="fade-in"
                 >
-                    <div className="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
-                        <div className="text-center  p-5">
+                    <div className="flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50">
+                        <div className="p-5 text-center">
                             <h1
-                                className="text-white text-2xl font-semibold uppercase md:text-3xl"
+                                className="text-2xl font-semibold text-white uppercase md:text-3xl"
                                 data-aos="fade-up"
                                 data-aos-delay="150"
                             >
                                 la rentrée scolaire{" "}
-                                <span className=" text-green-400">
+                                <span className="text-green-400 ">
                                     pour tous
                                 </span>
                             </h1>
                             <p
-                                className="text-white text-xl font-semibold md:text-2xl"
+                                className="text-xl font-semibold text-white md:text-2xl"
                                 data-aos="fade-up"
                                 data-aos-delay="300"
                             >
@@ -53,6 +53,18 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 quotidien peuvent changer la vie des plus
                                 demunis
                             </p>
+
+                            <h3
+                                className="mt-3 text-xl font-semibold text-white uppercase "
+                                data-aos="fade-up"
+                                data-aos-delay="150"
+                            >
+                                Deja{" "}
+                                <span className="text-green-400 ">
+                                   { totalDonations } FCFA
+                                </span>
+                                de dons
+                            </h3>
 
                             <span data-aos="fade-up" data-aos-delay="650">
                                 {" "}
@@ -64,18 +76,16 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             </header>
 
             <main id="main">
-
-
                 <section id="why-us" className="why-us">
                     <div
-                        className="container text-center justify-center"
+                        className="container justify-center text-center"
                         data-aos="fade-up"
                     >
-                        <div className="section-header w-screen text-center ">
+                        <div className="w-screen text-center section-header ">
                             <h2>Pourquoi faire un don ?</h2>
                         </div>
 
-                        <div className="w-screen grid gap-2 grid-cols-1 xl:grid-cols-2 p-10">
+                        <div className="grid w-screen grid-cols-1 gap-2 p-10 xl:grid-cols-2">
                             <div
                                 className="img-bg"
                                 style={{
@@ -87,7 +97,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 data-aos-delay="50"
                             ></div>
 
-                            <div className="swiper-wrapper text-center p-4">
+                            <div className="p-4 text-center swiper-wrapper">
                                 <div
                                     className="swiper-slide"
                                     data-aos="fade-up"
@@ -141,11 +151,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
                 <section id="step-list" className="step-list">
                     <div className="container" data-aos="fade-up">
-                        <div className="section-header w-screen text-center ">
+                        <div className="w-screen text-center section-header ">
                             <h2>Nos Etapes</h2>
                         </div>
 
-                        <div className="w-screen grid gap-2 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-10 place-items-center">
+                        <div className="grid w-screen grid-cols-1 gap-2 p-10 md:grid-cols-2 xl:grid-cols-3 place-items-center">
                             <div
                                 className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
                                 data-aos="fade-up"
@@ -343,7 +353,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     data-aos="fade-up"
                 >
                     <div className="row justify-content-center">
-                        <div className="col-lg-6 text-center">
+                        <div className="text-center col-lg-6">
                             <h3>Disponible pour toutes informations</h3>
                             <p>Contactez nous par whatsapp.</p>
                             <a
@@ -360,11 +370,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
                 <section id="services-list" className="services-list">
                     <div className="container" data-aos="fade-up">
-                        <div className="section-header w-screen text-center ">
+                        <div className="w-screen text-center section-header ">
                             <h2>Nos Objectifs</h2>
                         </div>
 
-                        <div className="w-screen grid gap-10 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 text-center  place-items-center">
+                        <div className="grid w-screen grid-cols-1 gap-10 text-center md:grid-cols-2 xl:grid-cols-3 place-items-center">
                             <div
                                 className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
                                 data-aos="fade-up"
@@ -448,25 +458,22 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </div>
                     </div>
                 </section>
-
             </main>
 
             <footer className="bg-white dark:bg-gray-900">
-                <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
                     <div className="md:flex md:justify-between">
                         <div className="mb-6 md:mb-0">
-
-                                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                                    Faites un don
-                                </span>
-
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                                Faites un don
+                            </span>
                         </div>
                         <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                             <div>
                                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                                     Nous contacter
                                 </h2>
-                                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                                <ul className="font-medium text-gray-500 dark:text-gray-400">
                                     <li className="mb-4">+237 6 55 20 31 46</li>
                                     <li>+237 6 50 51 01 62</li>
                                 </ul>
@@ -475,7 +482,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                                     Nos Options
                                 </h2>
-                                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                                <ul className="font-medium text-gray-500 dark:text-gray-400">
                                     <li className="mb-4">
                                         Donation via mobile
                                     </li>
@@ -488,7 +495,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                                     Contact Us
                                 </h2>
-                                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                                <ul className="font-medium text-gray-500 dark:text-gray-400">
                                     <li className="mb-4">pk 17</li>
                                     <li>Douala Cameroun</li>
                                 </ul>
