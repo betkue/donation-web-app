@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('reference');
             $table->string('description');
             $table->double('amount');
+            $table->string('phone');
             $table->integer('state')->default(0);
             $table->timestamps();
         });

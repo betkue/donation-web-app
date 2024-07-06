@@ -49,6 +49,7 @@ class PaymentController extends Controller
         if ($request->amount && $request->email && $request->name) {
             $amount = $request->amount ?? 100000;
             $email = $request->email ?? "betkuetjh@gmail.com";
+            $phone = $request->phone ?? "";
             $name = $request->name ?? "inconu";
             $ref = 'DONATION-' . now() . '-' . uniqid();
             $description = "Doation de " . "$amount" . "\n De la part de : " . "$name" . " \n Email : " . "$email \n Pour les demunis";
@@ -68,6 +69,7 @@ class PaymentController extends Controller
 
                 // Set the donation properties
                 $donation->name = $name;
+                $donation->phone = $phone;
                 $donation->email = $email;
                 $donation->reference = $ref; // Replace with your unique reference
                 $donation->description = $description;
