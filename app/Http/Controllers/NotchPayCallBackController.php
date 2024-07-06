@@ -11,7 +11,7 @@ class NotchPayCallBackController extends Controller
     public function __invoke(Request $request): RedirectResponse
     {
         // @ToDO Mis a jour de la commande dans votre base de données
-        NotchPay::setApiKey('pk_test.ThBuWaKHNVGH5cgsNjaZHDnDNbnzRKzxfdN6YSE0cjsJQWmre1V8pyigvtfBV170B5r1WTCC04gG8hWgMICi63fhDDJZtGL3z3Y6ffQ4Ucv47BolX4VlVeXzxdRsx');
+        NotchPay::setApiKey(env('NOTCHPAY_PUBLIC_KEY'));
 
         $verifyTransaction = Payment::verify($request->get('reference'));
 

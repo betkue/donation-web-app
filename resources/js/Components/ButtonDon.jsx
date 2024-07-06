@@ -97,8 +97,8 @@ function ButtonDon() {
                 </button>
 
                 <Modal show={showModal} onClose={closeModal}>
-                {/* <form  action="" method="get" onSubmit={donnation} className="p-6 m-auto"> */}
-                    <form  action="/payment" method="get"  className="p-6 m-auto">
+                    {/* <form  action="" method="get" onSubmit={donnation} className="p-6 m-auto"> */}
+                    <form action="/payment" method="get" className="p-6 m-auto">
                         <p className="mt-1 text-sm text-gray-600"></p>
 
                         <div className="mt-6">
@@ -106,11 +106,16 @@ function ButtonDon() {
                                 id="amount"
                                 type="number"
                                 name="amount"
+                                min={500}
                                 ref={amountInput}
-                                value={data.amount}
+                                value={data.amount || 500}
                                 onChange={(e) => {
-                                    setData("amount", e.target.value),
-                                        setAmount(e.target.value);
+                                    const newValue = Math.max(
+                                        500,
+                                        e.target.value
+                                    );
+                                    setData("amount", newValue);
+                                    setAmount(newValue);
                                 }}
                                 className="block w-3/4 mt-1"
                                 placeholder="Amount FCFA"
@@ -151,9 +156,8 @@ function ButtonDon() {
                                 ref={phoneInput}
                                 value={data.phone}
                                 onChange={(e) => {
-                                    setData("phone", e.target.value),setPhone(
-                                        e.target.value
-                                    );
+                                    setData("phone", e.target.value),
+                                        setPhone(e.target.value);
                                 }}
                                 className="block w-3/4 mt-1"
                                 placeholder="Phone "
@@ -166,28 +170,26 @@ function ButtonDon() {
                         </div>
 
                         <div className="flex justify-end mt-6">
-                            {
-                                !showLoad &&<button
-                                onClick={closeModal}
-                                className="px-4 py-2 mt-4 mr-4 text-sm font-medium text-white uppercase bg-red-600 rounded hover:bg-red-500 focus:outline-none focus:bg-red-500"
-                            >
-                                Annuler
-                            </button>
-                            }
-
-                            { !showLoad &&
+                            {!showLoad && (
                                 <button
-                                // onClick={load}
-                                type="submit"
-                                className="px-4 py-2 mt-4 text-sm font-medium text-white uppercase bg-green-600 rounded hover:bg-green-500 focus:outline-none focus:bg-green-500"
-                            >
-                                Faire un don
-                            </button>
-                            }
+                                    onClick={closeModal}
+                                    className="px-4 py-2 mt-4 mr-4 text-sm font-medium text-white uppercase bg-red-600 rounded hover:bg-red-500 focus:outline-none focus:bg-red-500"
+                                >
+                                    Annuler
+                                </button>
+                            )}
 
-                            {
-                                showLoad && <Loading/>
-                            }
+                            {!showLoad && (
+                                <button
+                                    // onClick={load}
+                                    type="submit"
+                                    className="px-4 py-2 mt-4 text-sm font-medium text-white uppercase bg-green-600 rounded hover:bg-green-500 focus:outline-none focus:bg-green-500"
+                                >
+                                    Faire un don
+                                </button>
+                            )}
+
+                            {showLoad && <Loading />}
                         </div>
                     </form>
                 </Modal>

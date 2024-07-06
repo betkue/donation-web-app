@@ -44,7 +44,7 @@ class PaymentController extends Controller
     //initialise __invoke
     public function __invoke(Request $request): RedirectResponse
     {
-        NotchPay::setApiKey('pk_test.ThBuWaKHNVGH5cgsNjaZHDnDNbnzRKzxfdN6YSE0cjsJQWmre1V8pyigvtfBV170B5r1WTCC04gG8hWgMICi63fhDDJZtGL3z3Y6ffQ4Ucv47BolX4VlVeXzxdRsx');
+        NotchPay::setApiKey(env('NOTCHPAY_PUBLIC_KEY'));
 
         if ($request->amount && $request->email && $request->name) {
             $amount = $request->amount ?? 100000;

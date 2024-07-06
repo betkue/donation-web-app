@@ -47,7 +47,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion,totalDonation
                                 data-aos="fade-up"
                                 data-aos-delay="300"
                             >
-                                Grande campagne de don du 30 Juin au 31 Août.
+                                Grande campagne de don du 07 Juillet au 31 Août.
                                 <br /> Participe toi aussi et fais un don pour
                                 aider ceux dans le besoin, les petits gestes du
                                 quotidien peuvent changer la vie des plus
