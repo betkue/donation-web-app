@@ -108,22 +108,22 @@ function ButtonDon() {
                                 name="amount"
                                 min={500}
                                 ref={amountInput}
-                                value={data.amount || 500}
+                                value={data.amount}
                                 onChange={(e) => {
                                     const newValue = e.target.value
                                     setData("amount", newValue);
                                     setAmount(newValue);
                                 }}
-                                onBlur={
-                                    (e) => {
-                                        const newValue = Math.max(
-                                            500,
-                                            e.target.value
-                                        );
-                                        setData("amount", newValue);
-                                        setAmount(newValue);
-                                    }
-                                }
+                                // onBlur={
+                                //     (e) => {
+                                //         const newValue = Math.max(
+                                //             500,
+                                //             e.target.value
+                                //         );
+                                //         setData("amount", e.target.value);
+                                //         setAmount(newValue);
+                                //     }
+                                // }
 
                                 className="block w-3/4 mt-1"
                                 placeholder="Amount FCFA"
