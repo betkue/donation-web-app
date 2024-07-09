@@ -17,9 +17,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/error', function () {
-    $totalDonations = Donation::where('state', 1)->sum('amount');
-    return Inertia::render('Welcome');
-})->name('error');
+    // $totalDonations = Donation::where('state', 1)->sum('amount');
+    return Inertia::render('Welcome',[]);
+});
 
 // Route::get('/payment-error', function () {
 
