@@ -16,15 +16,15 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/error', function () {
-    // $totalDonations = Donation::where('state', 1)->sum('amount');
-    return Inertia::render('Welcome',[]);
-});
+// Route::get('/error', function () {
+//     // $totalDonations = Donation::where('state', 1)->sum('amount');
+//     return Inertia::render('Welcome',[]);
+// });
 
-// Route::get('/payment-error', function () {
+Route::get('/payment-error', function () {
 
-//     return Inertia::render('ErrorPayement');
-// })->name('payment-error');
+    return Inertia::render('ErrorPayement');
+})->name('payment-error');
 
 
 Route::get('/payment-success', function () {
