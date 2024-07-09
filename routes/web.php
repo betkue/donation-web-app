@@ -11,40 +11,24 @@ use App\Models\Donation;
 Route::get('/', function () {
     $totalDonations = Donation::where('state', 1)->sum('amount');
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+
         'totalDonations'=>$totalDonations,
     ]);
 })->name('home');
 
 Route::get('/payment-error', function () {
-    $totalDonations = Donation::where('state', 1)->sum('amount');
-    return Inertia::render('ErrorPayement', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'totalDonations'=>$totalDonations,
-    ]);
+
+    return Inertia::render('ErrorPayement');
 })->name('payment-error');
 
 
 Route::get('/payment-success', function () {
-    $totalDonations = Donation::where('state', 1)->sum('amount');
-    return Inertia::render('SuccessPayement', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'totalDonations'=>$totalDonations,
-    ]);
+    return Inertia::render('SuccessPayement');
 })->name('payment-success');
 
-Route::get('payment', PaymentController::class)->name('payment');
+Route::get('/payment', PaymentController::class)->name('payment');
 // Route::get('payment/error', PaymentController::class,)->name('payment-error');
-Route::get('callback-payment', NotchPayCallBackController::class)->name('notchpay-callback');
+Route::get('/callback-payment', NotchPayCallBackController::class)->name('notchpay-callback');
 // Route::get('/payment', function () {
 //     $rave = new Rave($this->flwPublic, $this->flwSecret);
 
