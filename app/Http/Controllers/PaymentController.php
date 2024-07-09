@@ -45,7 +45,7 @@ class PaymentController extends Controller
     public function __invoke(Request $request): RedirectResponse
     {
         NotchPay::setApiKey(env('NOTCHPAY_PUBLIC_KEY'));
-
+        dd('rtter');
         if ($request->amount && $request->email && $request->name) {
             $amount = $request->amount ?? 100000;
             $email = $request->email ?? "betkuetjh@gmail.com";
@@ -81,14 +81,14 @@ class PaymentController extends Controller
 
                 return redirect($payload->authorization_url);
             } catch (\Throwable  $e) {
-                // dd("err");
+                dd("err");
 
                 session()->flash('error', __('Impossible de procéder au paiement, veuillez recommencer plus tard. Merci'));
                 return redirect(route('payment-error'));
             }
         } else {
             session()->flash('error', __('Impossible de procéder au paiement, veuillez recommencer plus tard. Merci'));
-            // dd($request);
+            dd($request);
             return redirect(route('payment-error'));
         }
 
