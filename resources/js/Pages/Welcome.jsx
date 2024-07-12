@@ -571,7 +571,6 @@ export default function Welcome({
                                     Contact Us
                                 </h2>
                                 <ul className="font-medium text-gray-500 dark:text-gray-400">
-                                    <li className="mb-4">pk 17</li>
                                     <li>Douala Cameroun</li>
                                 </ul>
                             </div>
