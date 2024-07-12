@@ -45,14 +45,14 @@ class PaymentController extends Controller
     public function __invoke(Request $request): RedirectResponse
     {
         NotchPay::setApiKey(env('NOTCHPAY_PUBLIC_KEY'));
-        // dd('rtter');
-        if ($request->amount && $request->email && $request->name) {
+        // dd('rtter'); && $request->email && $request->name
+        if ($request->amount ) {
             $amount = $request->amount ?? 100000;
             $email = $request->email ?? "betkuetjh@gmail.com";
             $phone = $request->phone ?? "";
             $name = $request->name ?? "inconu";
             $ref = 'DONATION-' . now() . '-' . uniqid();
-            $description = "Doation de " . "$amount" . "\n De la part de : " . "$name" . " \n Email : " . "$email \n Pour les demunis";
+            $description = "Doation de " . "$amount" . "\n De la part de : " . "$name" . " Pour les demunis";
             try {
                 $payload = Payment::initialize([
                     'amount' => $amount,

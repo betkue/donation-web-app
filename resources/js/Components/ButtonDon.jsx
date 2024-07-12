@@ -25,12 +25,12 @@ function ButtonDon() {
 
     const [amount, setAmount] = useState(0);
     const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
+    const [name, setName] = useState("Inconu");
     const [phone, setPhone] = useState("");
 
     const amountInput = useRef();
     const emailInput = useRef();
-    const nameInput = useRef();
+    const nameInput = useRef('Inconu');
     const phoneInput = useRef();
 
     const {
@@ -110,7 +110,7 @@ function ButtonDon() {
                                 ref={amountInput}
                                 value={data.amount}
                                 onChange={(e) => {
-                                    const newValue = e.target.value
+                                    const newValue = e.target.value;
                                     setData("amount", newValue);
                                     setAmount(newValue);
                                 }}
@@ -126,10 +126,24 @@ function ButtonDon() {
                                 // }
 
                                 className="block w-3/4 mt-1"
-                                placeholder="Amount FCFA"
+                                placeholder="Montant de votre don FCFA"
                             />
 
                             <TextInput
+                                id="name"
+                                type="text"
+                                name="name"
+                                ref={nameInput}
+                                value={data.name || "Anonyme"}
+                                onChange={(e) => {
+                                    setData("name", e.target.value),
+                                        setName(e.target.value);
+                                }}
+                                className="block w-3/4 mt-1"
+                                placeholder="Nom et prenom"
+                            />
+
+                            {/* <TextInput
                                 id="email"
                                 type="email"
                                 name="email"
@@ -141,23 +155,10 @@ function ButtonDon() {
                                 }}
                                 className="block w-3/4 mt-1"
                                 placeholder="Email"
-                            />
+                            /> */}
 
-                            <TextInput
-                                id="name"
-                                type="text"
-                                name="name"
-                                ref={nameInput}
-                                value={data.name}
-                                onChange={(e) => {
-                                    setData("name", e.target.value),
-                                        setName(e.target.value);
-                                }}
-                                className="block w-3/4 mt-1"
-                                placeholder="Name"
-                            />
 
-                            <TextInput
+                            {/* <TextInput
                                 id="phone"
                                 type="text"
                                 name="phone"
@@ -169,7 +170,7 @@ function ButtonDon() {
                                 }}
                                 className="block w-3/4 mt-1"
                                 placeholder="Phone "
-                            />
+                            /> */}
 
                             {/* <InputError
                                         message={errors.password}
@@ -199,6 +200,9 @@ function ButtonDon() {
 
                             {showLoad && <Loading />}
                         </div>
+                        <p className="italic mt-3 text-center">
+                            Les paiements sont sécurisés et réalisés par un partenaire agréé de paiement pour recevoir les paiements Orange & MTN
+                        </p>
                     </form>
                 </Modal>
                 {/* <ModalComponent>
