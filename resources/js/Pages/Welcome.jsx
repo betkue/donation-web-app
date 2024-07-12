@@ -3,17 +3,28 @@ import React, { useEffect } from "react";
 import hero from "../../assets/hero.jpg";
 import obj1 from "../../assets/obj-1.jpg";
 import obj2 from "../../assets/obj-2.jpg";
+import obj4 from "../../assets/obj-4.jpg";
+import obj5 from "../../assets/obj-5.jpg";
+import obj6 from "../../assets/obj-6.jpg";
 import ButtonDon from "@/Components/ButtonDon";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
 
-export default function Welcome({ auth, laravelVersion, phpVersion,totalDonations }) {
+export default function Welcome({
+    auth,
+    laravelVersion,
+    phpVersion,
+    totalDonations,
+}) {
     useEffect(() => {
         AOS.init();
     }, []);
     const imgObjectif1 = obj1;
     const imgObjectif2 = obj2;
     const imgObjectif3 = hero;
+    const imgObjectif4 = obj4;
+    const imgObjectif5 = obj5;
+    const imgObjectif6 = obj6;
     const whyus = obj2;
 
     return (
@@ -47,7 +58,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion,totalDonation
                                 data-aos="fade-up"
                                 data-aos-delay="300"
                             >
-                                Grande campagne de don du 10 Juillet au 31 Août.
+                                Grande campagne de don pour la rentrée scolaire 2024.
                                 <br /> Participe toi aussi et fais un don pour
                                 aider ceux dans le besoin, les petits gestes du
                                 quotidien peuvent changer la vie des plus
@@ -61,9 +72,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion,totalDonation
                             >
                                 Deja{" "}
                                 <span className="text-green-400 ">
-                                   { totalDonations } FCFA
-                                </span>
-                                {" "}de dons
+                                    {totalDonations} FCFA
+                                </span>{" "}
+                                de dons
                             </h3>
 
                             <span data-aos="fade-up" data-aos-delay="650">
@@ -375,6 +386,68 @@ export default function Welcome({ auth, laravelVersion, phpVersion,totalDonation
                         </div>
 
                         <div className="grid w-screen grid-cols-1 gap-10 text-center md:grid-cols-2 xl:grid-cols-3 place-items-center">
+
+                        <div
+                                className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
+                                data-aos="fade-up"
+                                data-aos-delay="300"
+                            >
+                                <div className="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+                                    <img src={imgObjectif4} alt="" />
+                                </div>
+                                <div className="p-6">
+                                    <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                                        Formation aux métiers de la technique
+                                    </h5>
+                                    <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit"></p>
+                                </div>
+                                <div className="p-6 pt-0">
+                                    <ButtonDon />
+                                </div>
+                            </div>
+
+                            <div
+                                className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
+                                data-aos="fade-up"
+                                data-aos-delay="300"
+                            >
+                                <div className="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+                                    <img src={imgObjectif5} alt="" />
+                                </div>
+                                <div className="p-6">
+                                    <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                                        Mise a disposition des enseignants pour
+                                        les classes d'examens
+                                    </h5>
+                                    <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit"></p>
+                                </div>
+                                <div className="p-6 pt-0">
+                                    <ButtonDon />
+                                </div>
+                            </div>
+
+                            <div
+                                className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
+                                data-aos="fade-up"
+                                data-aos-delay="300"
+                            >
+                                <div className="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+                                    <img src={imgObjectif6} alt="" />
+                                </div>
+                                <div className="p-6">
+                                    <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                                        Mise a disposition des fournitures
+                                        scolaires
+                                    </h5>
+                                    <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit"></p>
+                                </div>
+                                <div className="p-6 pt-0">
+                                    <ButtonDon />
+                                </div>
+                            </div>
+
+
+
                             <div
                                 className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
                                 data-aos="fade-up"
@@ -431,6 +504,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion,totalDonation
                                     <ButtonDon />
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </section>
