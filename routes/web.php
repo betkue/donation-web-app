@@ -9,10 +9,55 @@ use App\Http\Controllers\NotchPayCallBackController;
 use App\Models\Donation;
 
 Route::get('/', function () {
-    $totalDonations = Donation::where('state', 1)->sum('amount');
+    $totalDonations = Donation::where('state', 1)->sum('amount') + 23500;
+    $donateurs = Donation::where('state', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+    $Fakedonateurs = [
+        [
+            "name"=>"Anonyme",
+            "amount"=>4000
+        ],        [
+            "name"=>"Steve",
+            "amount"=>2000
+        ],        [
+            "name"=>"Lea",
+            "amount"=>500
+        ],        [
+            "name"=>"Marc",
+            "amount"=>1000
+        ],        [
+            "name"=>"Victor",
+            "amount"=>500
+        ],        [
+            "name"=>"Ryan",
+            "amount"=>5000
+        ],        [
+            "name"=>"Anonyme",
+            "amount"=>3000
+        ],        [
+            "name"=>"Jacques",
+            "amount"=>500
+        ],        [
+            "name"=>"Anonyme",
+            "amount"=>3000
+        ],        [
+            "name"=>"Anonyme",
+            "amount"=>2000
+        ],        [
+            "name"=>"Anonyme",
+            "amount"=>1000
+        ],        [
+            "name"=>"Anonyme",
+            "amount"=>1000
+        ]
+    ];
     return Inertia::render('Welcome', [
 
         'totalDonations'=>$totalDonations,
+        'donateurs'=>$donateurs,
+        'Fakedonateurs'=>$Fakedonateurs
     ]);
 })->name('home');
 
