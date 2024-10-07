@@ -221,7 +221,7 @@ export default function Welcome({
                             <p>Contactez nous par whatsapp.</p>
                             <a
                                 className="cta-btn"
-                                href="https://wa.me/237650510162"
+                                href="https://wa.me/+237657907407"
                                 rel="noreferrer"
                                 target="_blank"
                             >
@@ -393,8 +393,8 @@ export default function Welcome({
                                     Nous contacter
                                 </h2>
                                 <ul className="font-medium text-gray-500 dark:text-gray-400">
-                                    <li className="mb-4">+237 6 55 20 31 46</li>
-                                    <li>+237 6 50 51 01 62</li>
+                                    <li className="mb-4">+237 698 82 44 41</li>
+                                    <li>+237 6 57 90 74 07</li>
                                 </ul>
                             </div>
                             <div>
