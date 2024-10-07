@@ -16,7 +16,7 @@ export default function Welcome({
     phpVersion,
     totalDonations,
     donateurs,
-    Fakedonateurs
+    Fakedonateurs,
 }) {
     useEffect(() => {
         AOS.init();
@@ -28,7 +28,7 @@ export default function Welcome({
     const imgObjectif5 = obj5;
     const imgObjectif6 = obj6;
     const whyus = obj2;
-
+    const combinedDonateurs = [...donateurs, ...Fakedonateurs];
     return (
         <>
             <Head title="Faites un don" />
@@ -121,7 +121,8 @@ export default function Welcome({
                                             Une nouvelle année avec le sourire
                                         </h3>
                                         <h4 className="mb-3">
-                                            Offrez un peux de sourire à ceux qui sont dans le besoin
+                                            Offrez un peux de sourire à ceux qui
+                                            sont dans le besoin
                                         </h4>
                                     </div>
                                 </div>
@@ -162,17 +163,24 @@ export default function Welcome({
                 </section>
 
                 <section id="step-list" className="step-list">
-                    <div className="container" data-aos="fade-up">
+                    <div
+                        className="container w-full overflow-hidden"
+                        data-aos="fade-up"
+                    >
                         <div className="w-screen text-center section-header ">
                             <h2>Nos Donateurs</h2>
                         </div>
 
-                        <div className="grid w-screen grid-cols-3 gap-1 p-10 md:grid-cols-4 xl:grid-cols-6 place-items-center">
-
-{donateurs.map((donation, index) => (
+                        <div
+                            className="flex items-center space-x-6 w-full"
+                            style={{
+                                animation: `scroll-horizontal 20s linear infinite`,
+                            }}
+                        >
+                            {combinedDonateurs.map((donation, index) => (
                                 <div
                                     key={index}
-                                    className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl"
+                                    className="relative flex flex-col min-w-[250px] mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl"
                                     data-aos="fade-up"
                                     data-aos-delay="100"
                                 >
@@ -186,26 +194,20 @@ export default function Welcome({
                                     </div>
                                 </div>
                             ))}
-                        {Fakedonateurs.map((donation, index) => (
-                                <div
-                                    key={index}
-                                    className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl "
-                                    data-aos="fade-up"
-                                    data-aos-delay="100"
-                                >
-                                    <div className="p-3">
-                                        <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                                            {donation.name}
-                                        </h5>
-                                        <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-                                            {donation.amount}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-
                         </div>
                     </div>
+
+                    {/* Styles pour le défilement infini */}
+                    <style jsx>{`
+                        @keyframes scroll-horizontal {
+                            0% {
+                                transform: translateX(0);
+                            }
+                            100% {
+                                transform: translateX(-100%);
+                            }
+                        }
+                    `}</style>
                 </section>
 
                 <section
